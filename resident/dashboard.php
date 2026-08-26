@@ -5,6 +5,22 @@ requireLogin();
 
 // Kunin ang pangalan ng user mula sa session
 $full_name = $_SESSION['full_name'] ?? 'Resident';
+
+// Get request counts
+require_once '../config/database.php';
+$db = new Database();
+$conn = $db->getConnection();
+$user_id = $_SESSION['user_id'];
+
+$countQuery = "SELECT 
+    SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) as pending,
+    SUM(CASE WHEN status = 'approved' THEN 1 ELSE 0 END) as approved,
+    SUM(CASE WHEN status = 'rejected' THEN 1 ELSE 0 END) as rejected,
+    COUNT(*) as total
+FROM document_requests WHERE user_id = ?";
+$stmt = $conn->prepare($countQuery);
+$stmt->execute([$user_id]);
+$stats = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -191,6 +207,7 @@ $full_name = $_SESSION['full_name'] ?? 'Resident';
             text-decoration: none;
             color: inherit;
             display: block;
+            cursor: pointer;
         }
 
         .action-card:hover {
@@ -261,6 +278,22 @@ $full_name = $_SESSION['full_name'] ?? 'Resident';
         }
         .stat-item .stat-number.rejected {
             color: #dc3545;
+        }
+
+        .requests-summary .no-requests {
+            font-size: 0.85rem;
+            color: #6b7c6f;
+            margin-top: 10px;
+        }
+
+        .requests-summary .no-requests a {
+            color: #166534;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .requests-summary .no-requests a:hover {
+            text-decoration: underline;
         }
 
         @media (max-width: 992px) {
@@ -337,23 +370,30 @@ $full_name = $_SESSION['full_name'] ?? 'Resident';
             <p>What would you like to do today?</p>
         </div>
 
-        <!-- Quick Actions -->
+        <!-- ===== QUICK ACTIONS WITH WORKING LINKS ===== -->
         <div class="quick-actions">
-            <a href="#" class="action-card">
+            <!-- 1. REQUEST DOCUMENT - LINK TO request_document.php -->
+            <a href="request_document.php" class="action-card">
                 <i class="fas fa-file-alt"></i>
                 <h4>Request Document</h4>
                 <p>Barangay Clearance, Indigency, Residency</p>
             </a>
+            
+            <!-- 2. APPLY PERMIT - COMING SOON -->
             <a href="#" class="action-card">
                 <i class="fas fa-calendar-check"></i>
                 <h4>Apply for Permit</h4>
                 <p>Community event permits</p>
             </a>
-            <a href="#" class="action-card">
+            
+            <!-- 3. TRACK REQUESTS - LINK TO track_requests.php -->
+            <a href="track_requests.php" class="action-card">
                 <i class="fas fa-search"></i>
                 <h4>Track Requests</h4>
                 <p>Check status of your applications</p>
             </a>
+            
+            <!-- 4. MY PROFILE - COMING SOON -->
             <a href="#" class="action-card">
                 <i class="fas fa-user-edit"></i>
                 <h4>My Profile</h4>
@@ -361,30 +401,33 @@ $full_name = $_SESSION['full_name'] ?? 'Resident';
             </a>
         </div>
 
-        <!-- Summary -->
+        <!-- ===== REQUESTS SUMMARY ===== -->
         <div class="requests-summary">
             <h4><i class="fas fa-chart-simple" style="margin-right: 10px; color: #166534;"></i> Your Requests Summary</h4>
             <div class="summary-stats">
                 <div class="stat-item">
                     <span class="stat-label">Pending:</span>
-                    <span class="stat-number pending">0</span>
+                    <span class="stat-number pending"><?= $stats['pending'] ?? 0 ?></span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">Approved:</span>
-                    <span class="stat-number approved">0</span>
+                    <span class="stat-number approved"><?= $stats['approved'] ?? 0 ?></span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">Rejected:</span>
-                    <span class="stat-number rejected">0</span>
+                    <span class="stat-number rejected"><?= $stats['rejected'] ?? 0 ?></span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">Total Requests:</span>
-                    <span class="stat-number">0</span>
+                    <span class="stat-number"><?= $stats['total'] ?? 0 ?></span>
                 </div>
             </div>
-            <p style="font-size: 0.85rem; color: #6b7c6f; margin-top: 10px;">
-                <i class="fas fa-info-circle"></i> You haven't made any requests yet.
-            </p>
+            <?php if(($stats['total'] ?? 0) == 0): ?>
+                <p class="no-requests">
+                    <i class="fas fa-info-circle"></i> You haven't made any requests yet. 
+                    <a href="request_document.php">Submit a new request →</a>
+                </p>
+            <?php endif; ?>
         </div>
     </div>
 
