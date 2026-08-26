@@ -378,9 +378,14 @@ $stats = $stmt->fetch(PDO::FETCH_ASSOC);
                 <h4>Request Document</h4>
                 <p>Barangay Clearance, Indigency, Residency</p>
             </a>
+<<<<<<< HEAD
             
             <!-- 2. APPLY PERMIT - COMING SOON -->
             <a href="#" class="action-card">
+=======
+            <!-- ===== EVENT PERMIT LINK - UPDATED! ===== -->
+            <a href="event_permit.php" class="action-card">
+>>>>>>> d4ad68061af7e92d666e4a90a8164d820ae93b19
                 <i class="fas fa-calendar-check"></i>
                 <h4>Apply for Permit</h4>
                 <p>Community event permits</p>
@@ -392,9 +397,13 @@ $stats = $stmt->fetch(PDO::FETCH_ASSOC);
                 <h4>Track Requests</h4>
                 <p>Check status of your applications</p>
             </a>
+<<<<<<< HEAD
             
             <!-- 4. MY PROFILE - COMING SOON -->
             <a href="#" class="action-card">
+=======
+            <a href="profile.php" class="action-card">
+>>>>>>> d4ad68061af7e92d666e4a90a8164d820ae93b19
                 <i class="fas fa-user-edit"></i>
                 <h4>My Profile</h4>
                 <p>Update your personal information</p>

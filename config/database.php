@@ -5,7 +5,7 @@ class Database {
     private $port = "3306";
     private $db_name = "barangay_online_services";
     private $username = "root";
-    private $password = "";  // ILAGAY PASSWORD NIYO
+    private $password = "Bsit2023@3-2";  // ILAGAY PASSWORD NIYO
     public $conn;
 
     public function getConnection() {
