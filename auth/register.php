@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 50, 35, 0.6);
+            background: rgba(10, 50, 35, 0.65);
         }
 
         .register-image-content {
@@ -92,6 +92,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             text-align: center;
             padding: 40px;
             max-width: 500px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .register-image-content h1 {
@@ -148,24 +154,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-bottom: 35px;
         }
 
-        .register-header .logo-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 15px;
+        .register-header .logo-img {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            overflow: hidden;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            border: 2px solid #e8f0ec;
-        }
-
-        .register-header .logo-icon img {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
+            margin: 0 auto 15px;
+            box-shadow: 0 8px 18px rgba(21, 128, 61, 0.15);
+            border: 3px solid white;
+            display: block;
         }
 
         .register-header h2 {
@@ -453,17 +450,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border-left: 4px solid #e53e3e;
         }
 
-        .success-box {
-            background: #e6f7ec;
-            color: #166534;
-            padding: 14px 18px;
-            border-radius: 28px;
-            margin-top: 18px;
-            text-align: center;
-            font-size: 14px;
-            border-left: 4px solid #166534;
-        }
-
         .modal {
             display: none;
             position: fixed;
@@ -538,20 +524,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             box-shadow: 0 8px 20px rgba(22, 101, 52, 0.3);
         }
 
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
         /* ===== RESPONSIVE ===== */
         @media (max-width: 992px) {
             body {
@@ -619,9 +591,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="register-form-wrapper">
         <div class="register-container">
             <div class="register-header">
-                <div class="logo-icon">
-                    <img src="../images/paranaque-logo.jpg" alt="Logo" onerror="this.src='https://via.placeholder.com/70?text=Logo';">
-                </div>
+                <img src="../images/logo.jpg" alt="Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/80?text=Logo'">
                 <h2>Resident Registration</h2>
                 <p>Create your Barangay Sto. Niño account</p>
             </div>
@@ -647,7 +617,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label><i class="fas fa-lock"></i> Password</label>
                     <div class="password-wrapper">
                         <input type="password" name="password" id="password" placeholder="Create a strong password" required>
-                        <button type="button" class="password-toggle" id="togglePassword" aria-label="Toggle password">
+                        <button type="button" class="password-toggle" id="togglePassword">
                             <i class="fas fa-eye"></i>
                         </button>
                     </div>
@@ -661,7 +631,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label><i class="fas fa-check-circle"></i> Confirm Password</label>
                     <div class="password-wrapper">
                         <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your password" required>
-                        <button type="button" class="password-toggle" id="toggleConfirmPassword" aria-label="Toggle password">
+                        <button type="button" class="password-toggle" id="toggleConfirmPassword">
                             <i class="fas fa-eye"></i>
                         </button>
                     </div>

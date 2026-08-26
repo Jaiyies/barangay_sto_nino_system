@@ -4,10 +4,9 @@ require_once '../config/database.php';
 session_start();
 
 // ===== LOCKOUT LOGIC =====
-$lockout_time = 30; // seconds
+$lockout_time = 30;
 $max_attempts = 3;
 
-// Initialize session variables for login attempts
 if (!isset($_SESSION['login_attempts'])) {
     $_SESSION['login_attempts'] = 0;
 }
@@ -19,14 +18,12 @@ $error = '';
 $remaining_time = 0;
 $is_locked = false;
 
-// Check if currently locked out
 if ($_SESSION['login_attempts'] >= $max_attempts) {
     $elapsed = time() - $_SESSION['last_attempt_time'];
     if ($elapsed < $lockout_time) {
         $is_locked = true;
         $remaining_time = $lockout_time - $elapsed;
     } else {
-        // Reset attempts after lockout period
         $_SESSION['login_attempts'] = 0;
         $_SESSION['last_attempt_time'] = 0;
         $is_locked = false;
@@ -48,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if ($user && password_verify($password, $user['password'])) {
-        // Login successful - reset attempts
         $_SESSION['login_attempts'] = 0;
         $_SESSION['last_attempt_time'] = 0;
         
@@ -70,7 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
         }
         exit();
     } else {
-        // Failed attempt
         $_SESSION['login_attempts']++;
         $_SESSION['last_attempt_time'] = time();
         
@@ -126,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 50, 35, 0.6);
+            background: rgba(10, 50, 35, 0.65);
         }
 
         .login-image-content {
@@ -136,6 +131,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
             text-align: center;
             padding: 40px;
             max-width: 500px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .login-image-content h1 {
@@ -192,24 +193,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
             margin-bottom: 35px;
         }
 
-        .login-header .logo-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 15px;
+        .login-header .logo-img {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            overflow: hidden;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            border: 2px solid #e8f0ec;
-        }
-
-        .login-header .logo-icon img {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
+            margin: 0 auto 15px;
+            box-shadow: 0 8px 18px rgba(21, 128, 61, 0.15);
+            border: 3px solid white;
+            display: block;
         }
 
         .login-header h2 {
@@ -543,9 +535,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
     <div class="login-form-wrapper">
         <div class="login-container">
             <div class="login-header">
-                <div class="logo-icon">
-                    <img src="../images/paranaque-logo.jpg" alt="Logo" onerror="this.src='https://via.placeholder.com/70?text=Logo';">
-                </div>
+                <img src="../images/logo.jpg" alt="Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/80?text=Logo'">
                 <h2>Sign In</h2>
                 <p>Access your Barangay Sto. Niño account</p>
             </div>
@@ -574,7 +564,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
                         <label><i class="fas fa-lock"></i> Password</label>
                         <div class="password-wrapper">
                             <input type="password" name="password" id="password" placeholder="Enter your password" required <?= $is_locked ? 'disabled' : '' ?>>
-                            <button type="button" class="password-toggle" id="togglePassword" aria-label="Toggle password">
+                            <button type="button" class="password-toggle" id="togglePassword">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -604,7 +594,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
                         <label><i class="fas fa-key"></i> Admin Password</label>
                         <div class="password-wrapper">
                             <input type="password" name="password" id="adminPassword" placeholder="Enter admin password" required <?= $is_locked ? 'disabled' : '' ?>>
-                            <button type="button" class="password-toggle" id="toggleAdminPassword" aria-label="Toggle password">
+                            <button type="button" class="password-toggle" id="toggleAdminPassword">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -699,11 +689,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
                     lockoutTimerEl.style.color = '#166534';
                     lockoutTimerEl.style.borderLeftColor = '#166534';
                 }
-                // Enable inputs and button
                 inputs.forEach(input => input.disabled = false);
                 if (submitBtn) submitBtn.disabled = false;
                 
-                // Redirect to refresh session (optional)
                 setTimeout(function() {
                     window.location.reload();
                 }, 1500);

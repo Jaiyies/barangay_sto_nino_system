@@ -25,7 +25,6 @@ session_start();
             flex-direction: column;
         }
 
-        /* ===== NAVBAR ===== */
         .top-nav {
             background: white;
             padding: 0 48px;
@@ -99,7 +98,6 @@ session_start();
             border-bottom-color: #0f5c3a;
         }
 
-        /* ===== MAIN CONTAINER ===== */
         .main-container {
             display: flex;
             min-height: 100vh;
@@ -107,7 +105,6 @@ session_start();
             flex: 1;
         }
 
-        /* ===== LEFT SIDE - SOLID COLOR ===== */
         .hero-panel {
             flex: 1.2;
             background: linear-gradient(135deg, #0d3b26, #1a5d3a);
@@ -166,8 +163,7 @@ session_start();
             background: rgba(255, 255, 255, 0.25);
         }
 
-        /* ===== RIGHT SIDE - LOGIN ===== */
-        .login-panel {
+        .cta-panel {
             flex: 0.9;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -177,83 +173,18 @@ session_start();
             padding: 48px 32px;
         }
 
-        .login-card {
+        .cta-card {
             background: white;
             border-radius: 48px;
-            padding: 40px 35px;
+            padding: 50px 40px;
             width: 100%;
             max-width: 460px;
             box-shadow: 0 30px 55px -15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: center;
             border: 1px solid #eef3f0;
         }
 
-        .login-card:hover {
-            box-shadow: 0 35px 60px -18px rgba(0, 0, 0, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .role-tabs {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 30px;
-            background: #f1f5f9;
-            padding: 6px;
-            border-radius: 60px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 12px 20px;
-            border: none;
-            background: transparent;
-            font-size: 0.95rem;
-            font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            color: #5b6e64;
-        }
-
-        .tab-btn i {
-            font-size: 1rem;
-        }
-
-        .tab-btn.active {
-            background: #0a4a2e;
-            color: white;
-            box-shadow: 0 4px 12px rgba(10, 74, 46, 0.3);
-        }
-
-        .tab-btn.admin-tab.active {
-            background: #c53030;
-            box-shadow: 0 4px 12px rgba(197, 48, 48, 0.3);
-        }
-
-        .login-form {
-            display: none;
-        }
-
-        .login-form.active-form {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .login-header .logo-img {
+        .cta-card .logo-img {
             width: 80px;
             height: 80px;
             border-radius: 50%;
@@ -264,150 +195,55 @@ session_start();
             display: block;
         }
 
-        .login-header h2 {
+        .cta-card h2 {
             font-size: 1.6rem;
             font-weight: 700;
-            color: #1a3b2f;
-        }
-
-        .login-header p {
-            color: #6b7c6f;
-            font-size: 0.85rem;
-            margin-top: 5px;
-        }
-
-        .admin-header h2 {
-            color: #c53030;
-        }
-
-        .input-field {
-            margin-bottom: 22px;
-        }
-
-        .input-field label {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #476b5c;
+            color: #0b4127;
             margin-bottom: 8px;
         }
 
-        .input-wrapper {
-            display: flex;
-            align-items: center;
-            background: #fafdfb;
-            border: 1.5px solid #e2e9ef;
-            border-radius: 28px;
-            padding: 5px 20px;
-            transition: all 0.2s;
-        }
-
-        .input-wrapper i {
-            color: #95ad9f;
-            font-size: 1rem;
-            margin-right: 12px;
-        }
-
-        .input-wrapper input {
-            width: 100%;
-            padding: 14px 0;
-            border: none;
-            background: transparent;
+        .cta-card p {
+            color: #6b7c6f;
             font-size: 0.95rem;
-            font-weight: 500;
-            outline: none;
-            font-family: 'Inter', sans-serif;
+            margin-bottom: 30px;
         }
 
-        .input-wrapper:focus-within {
-            border-color: #166534;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(22, 101, 52, 0.08);
-        }
-
-        .admin-input:focus-within {
-            border-color: #c53030;
-            box-shadow: 0 0 0 4px rgba(197, 48, 48, 0.08);
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 15px;
+        .cta-btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(105deg, #0f5c3a, #1f8a5c);
+            color: white;
             border: none;
-            border-radius: 44px;
+            border-radius: 50px;
             font-weight: 700;
             font-size: 1rem;
-            color: white;
-            cursor: pointer;
-            transition: all 0.25s;
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
 
-        .resident-login-btn {
-            background: linear-gradient(105deg, #0f5c3a, #1f8a5c);
-        }
-
-        .resident-login-btn:hover {
+        .cta-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 28px -12px #166534;
             background: linear-gradient(105deg, #0a4a2e, #166534);
         }
 
-        .admin-login-btn {
-            background: linear-gradient(105deg, #b91c1c, #c53030);
-        }
-
-        .admin-login-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 28px -12px #c53030;
-            background: linear-gradient(105deg, #991b1b, #b91c1c);
-        }
-
-        .register-note {
-            text-align: center;
-            margin-top: 28px;
-            font-size: 0.8rem;
+        .cta-card .register-note {
+            margin-top: 22px;
+            font-size: 0.85rem;
             color: #5b6e64;
         }
 
-        .register-note a {
+        .cta-card .register-note a {
             color: #166534;
             text-decoration: none;
             font-weight: 700;
-            border-bottom: 1px dashed #9bc0ae;
         }
 
-        .register-note a:hover {
+        .cta-card .register-note a:hover {
             color: #0a4a2e;
+            text-decoration: underline;
         }
 
-        .alert {
-            padding: 12px 15px;
-            border-radius: 16px;
-            font-size: 0.75rem;
-            margin-top: 18px;
-            font-weight: 500;
-        }
-
-        .alert-danger {
-            background: #fff5f5;
-            border-left: 4px solid #e53e3e;
-            color: #c53030;
-        }
-
-        .alert-success {
-            background: #e6f7ec;
-            border-left: 4px solid #166534;
-            color: #166534;
-        }
-
-        /* ===== MODALS ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -490,7 +326,6 @@ session_start();
             border-bottom: 1px solid #edf2f0;
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 960px) {
             .main-container {
                 flex-direction: column;
@@ -509,10 +344,10 @@ session_start();
             .feature-badge {
                 justify-content: center;
             }
-            .login-panel {
+            .cta-panel {
                 padding: 30px 16px;
             }
-            .login-card {
+            .cta-card {
                 max-width: 100%;
             }
             .top-nav {
@@ -523,9 +358,6 @@ session_start();
         @media (max-width: 768px) {
             .hero-content h1 {
                 font-size: 2rem;
-            }
-            .login-card {
-                padding: 28px 22px;
             }
             .logo img {
                 width: 45px;
@@ -559,19 +391,12 @@ session_start();
                 font-size: 0.65rem;
                 padding: 4px 14px;
             }
-            .login-panel {
-                padding: 20px 12px;
-            }
-            .login-card {
-                padding: 20px 16px;
+            .cta-card {
+                padding: 30px 20px;
                 border-radius: 32px;
             }
-            .tab-btn {
-                padding: 10px 12px;
-                font-size: 0.8rem;
-            }
-            .tab-btn span {
-                display: none;
+            .cta-card h2 {
+                font-size: 1.3rem;
             }
             .dev-grid {
                 grid-template-columns: 1fr;
@@ -608,86 +433,17 @@ session_start();
             </div>
         </div>
 
-        <!-- RIGHT -->
-        <div class="login-panel">
-            <div class="login-card">
-                <div class="role-tabs">
-                    <button class="tab-btn resident-tab active" id="residentTabBtn">
-                        <i class="fas fa-user"></i> <span>Resident</span>
-                    </button>
-                    <button class="tab-btn admin-tab" id="adminTabBtn">
-                        <i class="fas fa-shield-alt"></i> <span>Admin</span>
-                    </button>
-                </div>
-
-                <!-- RESIDENT -->
-                <div id="residentForm" class="login-form active-form">
-                    <div class="login-header">
-                        <img src="images/logo.jpg" alt="Logo" class="logo-img">
-                        <h2>Resident Portal</h2>
-                        <p>Sign in to request documents and apply for permits</p>
-                    </div>
-                    <form method="POST" action="auth/login.php">
-                        <div class="input-field">
-                            <label>EMAIL ADDRESS</label>
-                            <div class="input-wrapper">
-                                <i class="fas fa-envelope"></i>
-                                <input type="email" name="email" placeholder="juandelacruz@gmail.com" required>
-                            </div>
-                        </div>
-                        <div class="input-field">
-                            <label>PASSWORD</label>
-                            <div class="input-wrapper">
-                                <i class="fas fa-lock"></i>
-                                <input type="password" name="password" placeholder="••••••••" required>
-                            </div>
-                        </div>
-                        <button type="submit" class="login-btn resident-login-btn">
-                            <i class="fas fa-arrow-right-to-bracket"></i> Sign In
-                        </button>
-                    </form>
-                    <div class="register-note">
-                        New to the barangay? <a href="auth/register.php">Create an account →</a>
-                    </div>
-                    <?php if(isset($_SESSION['login_error'])): ?>
-                        <div class="alert alert-danger">
-                            <i class="fas fa-exclamation-triangle"></i> <?= $_SESSION['login_error']; unset($_SESSION['login_error']); ?>
-                        </div>
-                    <?php endif; ?>
-                    <?php if(isset($_SESSION['register_success'])): ?>
-                        <div class="alert alert-success">
-                            <i class="fas fa-check-circle"></i> <?= $_SESSION['register_success']; unset($_SESSION['register_success']); ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-
-                <!-- ADMIN -->
-                <div id="adminForm" class="login-form">
-                    <div class="login-header admin-header">
-                        <i class="fas fa-shield-alt" style="font-size: 3rem; color: #c53030; margin-bottom: 10px;"></i>
-                        <h2>Admin Portal</h2>
-                        <p>Authorized personnel only</p>
-                    </div>
-                    <form method="POST" action="auth/login.php">
-                        <input type="hidden" name="role" value="admin">
-                        <div class="input-field">
-                            <label>ADMIN EMAIL</label>
-                            <div class="input-wrapper admin-input">
-                                <i class="fas fa-envelope"></i>
-                                <input type="email" name="email" placeholder="admin@barangaystonino.gov.ph" required>
-                            </div>
-                        </div>
-                        <div class="input-field">
-                            <label>ADMIN PASSWORD</label>
-                            <div class="input-wrapper admin-input">
-                                <i class="fas fa-key"></i>
-                                <input type="password" name="password" placeholder="••••••••" required>
-                            </div>
-                        </div>
-                        <button type="submit" class="login-btn admin-login-btn">
-                            <i class="fas fa-sign-in-alt"></i> Sign In
-                        </button>
-                    </form>
+        <!-- RIGHT: CTA -->
+        <div class="cta-panel">
+            <div class="cta-card">
+                <img src="images/logo.jpg" alt="Logo" class="logo-img">
+                <h2>Welcome to Barangay Sto. Niño</h2>
+                <p>Sign in to access online services or create an account to get started.</p>
+                <a href="auth/login.php" class="cta-btn">
+                    <i class="fas fa-sign-in-alt"></i> Go to Login
+                </a>
+                <div class="register-note">
+                    New to the barangay? <a href="auth/register.php">Create an account →</a>
                 </div>
             </div>
         </div>
@@ -739,26 +495,6 @@ session_start();
     </div>
 
     <script>
-        // TAB SWITCHING
-        const residentTab = document.getElementById('residentTabBtn');
-        const adminTab = document.getElementById('adminTabBtn');
-        const residentForm = document.getElementById('residentForm');
-        const adminForm = document.getElementById('adminForm');
-
-        residentTab.addEventListener('click', () => {
-            residentTab.classList.add('active');
-            adminTab.classList.remove('active');
-            residentForm.classList.add('active-form');
-            adminForm.classList.remove('active-form');
-        });
-
-        adminTab.addEventListener('click', () => {
-            adminTab.classList.add('active');
-            residentTab.classList.remove('active');
-            adminForm.classList.add('active-form');
-            residentForm.classList.remove('active-form');
-        });
-
         // MODALS
         const aboutBtn = document.getElementById('aboutNavBtn');
         const contactBtn = document.getElementById('contactNavBtn');
