@@ -25,6 +25,7 @@ session_start();
             flex-direction: column;
         }
 
+        /* ===== NAVBAR ===== */
         .top-nav {
             background: white;
             padding: 0 48px;
@@ -48,20 +49,24 @@ session_start();
         }
 
         .logo img {
-            width: 48px;
-            height: 48px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             object-fit: cover;
-            background: white;
+            border: 2px solid #8B0000;
             padding: 3px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: white;
         }
 
         .logo h2 {
-            font-size: 1.45rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #0b4127;
             letter-spacing: -0.3px;
+        }
+
+        .logo h2 span {
+            color: #8B0000;
         }
 
         .nav-links {
@@ -94,17 +99,18 @@ session_start();
             border-bottom-color: #0f5c3a;
         }
 
+        /* ===== MAIN CONTAINER ===== */
         .main-container {
             display: flex;
             min-height: 100vh;
             margin-top: 80px;
             flex: 1;
-            background: url('images/background.jpg') center center / cover no-repeat fixed;
         }
-        
+
+        /* ===== LEFT SIDE - SOLID COLOR ===== */
         .hero-panel {
             flex: 1.2;
-            background: rgba(10, 50, 35, 0.75);
+            background: linear-gradient(135deg, #0d3b26, #1a5d3a);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -115,18 +121,12 @@ session_start();
             max-width: 520px;
             color: white;
             animation: fadeInUp 0.6s ease-out;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-content h1 {
@@ -152,7 +152,7 @@ session_start();
         }
 
         .feature-badge span {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.15);
             padding: 8px 20px;
             border-radius: 60px;
             font-size: 0.8rem;
@@ -163,9 +163,10 @@ session_start();
 
         .feature-badge span:hover {
             transform: translateY(-2px);
-            background: rgba(0, 0, 0, 0.55);
+            background: rgba(255, 255, 255, 0.25);
         }
 
+        /* ===== RIGHT SIDE - LOGIN ===== */
         .login-panel {
             flex: 0.9;
             background: rgba(255, 255, 255, 0.95);
@@ -243,14 +244,8 @@ session_start();
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .login-header {
@@ -259,13 +254,14 @@ session_start();
         }
 
         .login-header .logo-img {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             object-fit: cover;
             margin: 0 auto 15px;
             box-shadow: 0 8px 18px rgba(21, 128, 61, 0.15);
             border: 3px solid white;
+            display: block;
         }
 
         .login-header h2 {
@@ -411,6 +407,7 @@ session_start();
             color: #166534;
         }
 
+        /* ===== MODALS ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -435,14 +432,8 @@ session_start();
         }
 
         @keyframes modalPop {
-            from {
-                opacity: 0;
-                transform: scale(0.94);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.94); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .modal-header {
@@ -499,159 +490,102 @@ session_start();
             border-bottom: 1px solid #edf2f0;
         }
 
-        /* ===== MOBILE RESPONSIVE ===== */
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 960px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .hero-panel {
+                min-height: 280px;
+                padding: 30px 20px;
+                text-align: center;
+            }
+            .hero-content {
+                max-width: 100%;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .feature-badge {
+                justify-content: center;
+            }
+            .login-panel {
+                padding: 30px 16px;
+            }
+            .login-card {
+                max-width: 100%;
+            }
+            .top-nav {
+                padding: 0 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            .login-card {
+                padding: 28px 22px;
+            }
+            .logo img {
+                width: 45px;
+                height: 45px;
+            }
+            .logo h2 {
+                font-size: 1rem;
+            }
+        }
+
         @media (max-width: 480px) {
             .top-nav {
                 padding: 0 16px;
                 height: 64px;
                 flex-wrap: wrap;
             }
-
-            .logo h2 {
-                font-size: 1rem;
-            }
-
             .logo img {
                 width: 36px;
                 height: 36px;
             }
-
-            .nav-links {
-                gap: 16px;
+            .logo h2 {
+                font-size: 0.85rem;
             }
-
-            .nav-link {
-                font-size: 0.8rem;
-            }
-
             .hero-content h1 {
                 font-size: 1.8rem;
             }
-
             .hero-content p {
                 font-size: 0.9rem;
             }
-
             .feature-badge span {
                 font-size: 0.65rem;
                 padding: 4px 14px;
             }
-
             .login-panel {
                 padding: 20px 12px;
             }
-
             .login-card {
                 padding: 20px 16px;
                 border-radius: 32px;
             }
-
-            .login-header h2 {
-                font-size: 1.2rem;
-            }
-
-            .role-tabs {
-                gap: 6px;
-            }
-
             .tab-btn {
                 padding: 10px 12px;
                 font-size: 0.8rem;
             }
-
-            .input-wrapper input {
-                font-size: 0.85rem;
-                padding: 12px 0;
+            .tab-btn span {
+                display: none;
             }
-
-            .login-btn {
-                padding: 12px;
-                font-size: 0.9rem;
-            }
-
-            .modal-card {
-                width: 95%;
-                border-radius: 28px;
-            }
-
-            .modal-header {
-                padding: 18px 20px;
-            }
-
-            .modal-header h3 {
-                font-size: 1.2rem;
-            }
-
-            .modal-body {
-                padding: 20px 18px 28px;
-            }
-
             .dev-grid {
                 grid-template-columns: 1fr;
-                gap: 8px;
-            }
-
-            .dev-item {
-                font-size: 0.75rem;
-                padding: 8px 14px;
-            }
-
-            .contact-line {
-                font-size: 0.85rem;
-                padding: 10px 0;
-                gap: 12px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .top-nav {
-                padding: 0 24px;
-            }
-
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-
-            .login-card {
-                padding: 28px 22px;
-            }
-        }
-
-        @media (max-width: 960px) {
-            .main-container {
-                flex-direction: column;
-            }
-
-            .hero-panel {
-                min-height: 280px;
-                padding: 30px 20px;
-                text-align: center;
-            }
-
-            .hero-content {
-                max-width: 100%;
-            }
-
-            .feature-badge {
-                justify-content: center;
-            }
-
-            .login-panel {
-                padding: 30px 16px;
-            }
-
-            .login-card {
-                max-width: 100%;
             }
         }
     </style>
 </head>
 <body>
+
     <!-- ======= NAVBAR ======= -->
     <nav class="top-nav">
         <div class="logo">
-            <img src="images/paranaque-logo.jpg" alt="Logo" onerror="this.src='https://via.placeholder.com/48?text=Logo'">
-            <h2>Barangay Sto. Niño</h2>
+            <img src="images/logo.jpg" alt="Barangay Sto. Niño Logo">
+            <h2><span>Sto.</span> Niño</h2>
         </div>
         <div class="nav-links">
             <a class="nav-link" id="aboutNavBtn"><i class="fas fa-info-circle"></i> About</a>
@@ -659,8 +593,9 @@ session_start();
         </div>
     </nav>
 
-    <!-- ======= MAIN CONTAINER ======= -->
+    <!-- ======= MAIN ======= -->
     <div class="main-container">
+        <!-- LEFT -->
         <div class="hero-panel">
             <div class="hero-content">
                 <h1>Online Services<br>Simplified</h1>
@@ -673,6 +608,7 @@ session_start();
             </div>
         </div>
 
+        <!-- RIGHT -->
         <div class="login-panel">
             <div class="login-card">
                 <div class="role-tabs">
@@ -684,10 +620,10 @@ session_start();
                     </button>
                 </div>
 
-                <!-- RESIDENT LOGIN -->
+                <!-- RESIDENT -->
                 <div id="residentForm" class="login-form active-form">
                     <div class="login-header">
-                        <img src="images/paranaque-logo.jpg" alt="Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/70?text=Logo'">
+                        <img src="images/logo.jpg" alt="Logo" class="logo-img">
                         <h2>Resident Portal</h2>
                         <p>Sign in to request documents and apply for permits</p>
                     </div>
@@ -725,7 +661,7 @@ session_start();
                     <?php endif; ?>
                 </div>
 
-                <!-- ADMIN LOGIN -->
+                <!-- ADMIN -->
                 <div id="adminForm" class="login-form">
                     <div class="login-header admin-header">
                         <i class="fas fa-shield-alt" style="font-size: 3rem; color: #c53030; margin-bottom: 10px;"></i>
@@ -757,7 +693,7 @@ session_start();
         </div>
     </div>
 
-    <!-- ======= ABOUT MODAL ======= -->
+    <!-- ======= ABOUT ======= -->
     <div id="aboutModal" class="modal-overlay">
         <div class="modal-card">
             <div class="modal-header">
@@ -770,10 +706,10 @@ session_start();
                 <div style="margin: 28px 0 12px;">
                     <p><strong><i class="fas fa-graduation-cap"></i> Capstone Project Team (BSIT)</strong></p>
                     <div class="dev-grid">
-                        <div class="dev-item">👩‍💻 Alcantara, Angelica Ann T.</div>
-                        <div class="dev-item">👨‍💻 Goyon, Jireh B.</div>
-                        <div class="dev-item">👩‍💻 Oliva, Kristine Joy I.</div>
-                        <div class="dev-item">👩‍💻 Sanchez, Jenica C.</div>
+                        <div class="dev-item">Alcantara, Angelica Ann T.</div>
+                        <div class="dev-item">Goyon, Jireh B.</div>
+                        <div class="dev-item">Oliva, Kristine Joy I.</div>
+                        <div class="dev-item">Sanchez, Jenica C.</div>
                     </div>
                     <p style="font-size: 0.8rem; color: #506e60; margin-top: 16px;">Polytechnic University of the Philippines - Parañaque Campus</p>
                 </div>
@@ -781,7 +717,7 @@ session_start();
         </div>
     </div>
 
-    <!-- ======= CONTACT MODAL ======= -->
+    <!-- ======= CONTACT ======= -->
     <div id="contactModal" class="modal-overlay">
         <div class="modal-card">
             <div class="modal-header">
@@ -803,7 +739,7 @@ session_start();
     </div>
 
     <script>
-        // ===== TAB SWITCHING =====
+        // TAB SWITCHING
         const residentTab = document.getElementById('residentTabBtn');
         const adminTab = document.getElementById('adminTabBtn');
         const residentForm = document.getElementById('residentForm');
@@ -823,7 +759,7 @@ session_start();
             residentForm.classList.remove('active-form');
         });
 
-        // ===== MODALS =====
+        // MODALS
         const aboutBtn = document.getElementById('aboutNavBtn');
         const contactBtn = document.getElementById('contactNavBtn');
         const aboutModal = document.getElementById('aboutModal');
