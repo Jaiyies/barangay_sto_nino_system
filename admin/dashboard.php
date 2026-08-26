@@ -1,5 +1,6 @@
 <?php
 // admin/dashboard.php - HEAD ADMIN ONLY
+require_once '../config/database.php';
 require_once '../config/session.php';
 requireLogin();
 
@@ -93,8 +94,29 @@ if (isset($_POST['action']) && $_POST['action'] == 'post_announcement') {
     }
 }
 
+// ===== DELETE USER (Head Admin only) =====
+if (isset($_POST['action']) && $_POST['action'] == 'delete_user') {
+    $user_id = intval($_POST['user_id']);
+    
+    // Check if user is not the current admin
+    if ($user_id == $_SESSION['user_id']) {
+        $message = "You cannot delete your own account!";
+        $messageType = 'danger';
+    } else {
+        $query = "UPDATE users SET deleted_at = NOW(), status = 'inactive' WHERE user_id = ?";
+        $stmt = $conn->prepare($query);
+        if ($stmt->execute([$user_id])) {
+            $message = "User deleted successfully!";
+            $messageType = 'success';
+        } else {
+            $message = "Failed to delete user.";
+            $messageType = 'danger';
+        }
+    }
+}
+
 // ===== FETCH DATA =====
-$usersQuery = "SELECT * FROM users WHERE user_id != ? ORDER BY created_at DESC";
+$usersQuery = "SELECT * FROM users WHERE user_id != ? AND deleted_at IS NULL ORDER BY created_at DESC";
 $usersStmt = $conn->prepare($usersQuery);
 $usersStmt->execute([$_SESSION['user_id']]);
 $users = $usersStmt->fetchAll(PDO::FETCH_ASSOC);
@@ -292,6 +314,7 @@ $announcements = $announcementsStmt->fetchAll(PDO::FETCH_ASSOC);
                                 <?php endif; ?>
                             </td>
                             <td>
+                                <!-- Block/Unblock -->
                                 <form method="POST" style="display:inline;">
                                     <input type="hidden" name="action" value="toggle_block">
                                     <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
@@ -301,6 +324,8 @@ $announcements = $announcementsStmt->fetchAll(PDO::FETCH_ASSOC);
                                         <?= $user['is_blocked'] ? 'Unblock' : 'Block' ?>
                                     </button>
                                 </form>
+                                
+                                <!-- Assign Role -->
                                 <form method="POST" style="display:inline;">
                                     <input type="hidden" name="action" value="assign_role">
                                     <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
@@ -310,6 +335,15 @@ $announcements = $announcementsStmt->fetchAll(PDO::FETCH_ASSOC);
                                         <option value="secondary_admin" <?= $user['role']=='secondary_admin'?'selected':'' ?>>Secondary Admin</option>
                                         <option value="head_admin" <?= $user['role']=='head_admin'?'selected':'' ?>>Head Admin</option>
                                     </select>
+                                </form>
+
+                                <!-- Delete User (Head Admin only) -->
+                                <form method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone!');">
+                                    <input type="hidden" name="action" value="delete_user">
+                                    <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>

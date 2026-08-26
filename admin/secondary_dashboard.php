@@ -1,5 +1,6 @@
 <?php
 // admin/secondary_dashboard.php - SECONDARY ADMIN ONLY
+require_once '../config/database.php';
 require_once '../config/session.php';
 requireLogin();
 
@@ -123,7 +124,6 @@ $announcements = $announcementsStmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-    <!-- ===== SIDEBAR ===== -->
     <aside class="sidebar" id="sidebar">
         <div class="logo">
             <img src="../images/logo.jpg" alt="Logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
@@ -151,7 +151,6 @@ $announcements = $announcementsStmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </aside>
 
-    <!-- ===== MAIN ===== -->
     <main class="main-content">
         <div class="top-bar">
             <div style="display:flex; align-items:center; gap:15px;">
@@ -167,7 +166,6 @@ $announcements = $announcementsStmt->fetchAll(PDO::FETCH_ASSOC);
             <i class="fas fa-info-circle"></i> You have <strong>view-only</strong> access. Management features are restricted to Head Admin.
         </div>
 
-        <!-- ===== USERS TABLE (VIEW ONLY) ===== -->
         <div class="card" id="users">
             <div class="card-header">
                 <h3><i class="fas fa-users"></i> All Users</h3>
@@ -203,7 +201,6 @@ $announcements = $announcementsStmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
 
-        <!-- ===== ANNOUNCEMENTS (VIEW ONLY) ===== -->
         <div class="card" id="announcements">
             <div class="card-header">
                 <h3><i class="fas fa-bullhorn"></i> Announcements</h3>

@@ -44,8 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['login_attempts'] = 0;
+   if ($user && $password == $user['password']) {
         $_SESSION['last_attempt_time'] = 0;
         
         // Check if user is trying to login as admin
