@@ -344,7 +344,8 @@ $full_name = $_SESSION['full_name'] ?? 'Resident';
                 <h4>Request Document</h4>
                 <p>Barangay Clearance, Indigency, Residency</p>
             </a>
-            <a href="#" class="action-card">
+            <!-- ===== EVENT PERMIT LINK - UPDATED! ===== -->
+            <a href="event_permit.php" class="action-card">
                 <i class="fas fa-calendar-check"></i>
                 <h4>Apply for Permit</h4>
                 <p>Community event permits</p>
@@ -354,7 +355,7 @@ $full_name = $_SESSION['full_name'] ?? 'Resident';
                 <h4>Track Requests</h4>
                 <p>Check status of your applications</p>
             </a>
-            <a href="#" class="action-card">
+            <a href="profile.php" class="action-card">
                 <i class="fas fa-user-edit"></i>
                 <h4>My Profile</h4>
                 <p>Update your personal information</p>
