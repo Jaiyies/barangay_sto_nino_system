@@ -46,10 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    if ($user && password_verify($password, $user['password'])) {
+    // ===== DUAL CHECK: HASHED or PLAIN TEXT =====
+    if ($user && (password_verify($password, $user['password']) || $password === $user['password'])) {
         $_SESSION['login_attempts'] = 0;
         $_SESSION['last_attempt_time'] = 0;
         
+        // Check if user is trying to login as admin
         if ($role == 'admin' && !in_array($user['role'], ['head_admin', 'secondary_admin'])) {
             $_SESSION['login_error'] = 'You are not authorized as admin.';
             header("Location: ../index.php");
@@ -61,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
         $_SESSION['full_name'] = $user['full_name'];
         $_SESSION['role'] = $user['role'];
         
+        // ===== REDIRECT BASED ON ROLE =====
         if ($user['role'] == 'head_admin') {
             header("Location: ../admin/dashboard.php");
         } elseif ($user['role'] == 'secondary_admin') {
@@ -447,13 +450,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
                 <form method="POST" action="" id="loginForm">
                     <input type="hidden" name="role" value="resident">
                     <div class="input-group">
-                        <label><i class="fas fa-envelope"></i> Email Address</label>
-                        <input type="email" name="email" id="emailInput" placeholder="resident@stonino.gov.ph" required>
+                        <label for="emailInput"><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" name="email" id="emailInput" placeholder="resident@stonino.gov.ph" autocomplete="email" required>
                     </div>
                     <div class="input-group">
-                        <label><i class="fas fa-lock"></i> Password</label>
+                        <label for="password"><i class="fas fa-lock"></i> Password</label>
                         <div class="password-wrapper">
-                            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                            <input type="password" name="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
                             <button type="button" class="password-toggle" id="togglePassword"><i class="fas fa-eye"></i></button>
                         </div>
                     </div>
@@ -469,7 +472,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
                     </div>
                 </form>
 
-                <!-- ATTEMPT COUNTER - LALABAS LANG PAG MAY NAGAWANG MALI -->
                 <?php if(!$is_locked && $_SESSION['login_attempts'] > 0): ?>
                 <div class="attempt-counter">
                     <span class="attempt-text <?= $attempts_left <= 1 ? 'danger' : 'warning' ?>">
@@ -491,13 +493,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_locked) {
                 <form method="POST" action="" id="adminLoginForm">
                     <input type="hidden" name="role" value="admin">
                     <div class="input-group">
-                        <label><i class="fas fa-envelope"></i> Admin Email</label>
-                        <input type="email" name="email" id="adminEmailInput" placeholder="admin@barangaystonino.gov.ph" required>
+                        <label for="adminEmailInput"><i class="fas fa-envelope"></i> Admin Email</label>
+                        <input type="email" name="email" id="adminEmailInput" placeholder="admin@barangaystonino.gov.ph" autocomplete="email" required>
                     </div>
                     <div class="input-group">
-                        <label><i class="fas fa-key"></i> Admin Password</label>
+                        <label for="adminPassword"><i class="fas fa-key"></i> Admin Password</label>
                         <div class="password-wrapper">
-                            <input type="password" name="password" id="adminPassword" placeholder="Enter admin password" required>
+                            <input type="password" name="password" id="adminPassword" placeholder="Enter admin password" autocomplete="current-password" required>
                             <button type="button" class="password-toggle" id="toggleAdminPassword"><i class="fas fa-eye"></i></button>
                         </div>
                     </div>

@@ -370,40 +370,31 @@ $stats = $stmt->fetch(PDO::FETCH_ASSOC);
             <p>What would you like to do today?</p>
         </div>
 
-        <!-- ===== QUICK ACTIONS WITH WORKING LINKS ===== -->
+        <!-- ===== QUICK ACTIONS ===== -->
         <div class="quick-actions">
-            <!-- 1. REQUEST DOCUMENT - LINK TO request_document.php -->
+            <!-- 1. REQUEST DOCUMENT -->
             <a href="request_document.php" class="action-card">
                 <i class="fas fa-file-alt"></i>
                 <h4>Request Document</h4>
                 <p>Barangay Clearance, Indigency, Residency</p>
             </a>
-<<<<<<< HEAD
             
-            <!-- 2. APPLY PERMIT - COMING SOON -->
-            <a href="#" class="action-card">
-=======
-            <!-- ===== EVENT PERMIT LINK - UPDATED! ===== -->
+            <!-- 2. APPLY PERMIT -->
             <a href="event_permit.php" class="action-card">
->>>>>>> d4ad68061af7e92d666e4a90a8164d820ae93b19
                 <i class="fas fa-calendar-check"></i>
                 <h4>Apply for Permit</h4>
                 <p>Community event permits</p>
             </a>
             
-            <!-- 3. TRACK REQUESTS - LINK TO track_requests.php -->
+            <!-- 3. TRACK REQUESTS -->
             <a href="track_requests.php" class="action-card">
                 <i class="fas fa-search"></i>
                 <h4>Track Requests</h4>
                 <p>Check status of your applications</p>
             </a>
-<<<<<<< HEAD
             
-            <!-- 4. MY PROFILE - COMING SOON -->
-            <a href="#" class="action-card">
-=======
+            <!-- 4. MY PROFILE -->
             <a href="profile.php" class="action-card">
->>>>>>> d4ad68061af7e92d666e4a90a8164d820ae93b19
                 <i class="fas fa-user-edit"></i>
                 <h4>My Profile</h4>
                 <p>Update your personal information</p>
