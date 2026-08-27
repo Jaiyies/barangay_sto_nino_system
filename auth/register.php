@@ -32,6 +32,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt = $conn->prepare($query);
         
         if ($stmt->execute([$full_name, $username, $email, $password, $contact_number, $address])) {
+            
+            // ===== SEND WELCOME EMAIL =====
+            require_once '../config/mail_config.php';
+            
+            $subject = "Welcome to Barangay Sto. Niño Online Services!";
+            $body = "
+                <html>
+                <head>
+                    <style>
+                        body { font-family: Arial, sans-serif; color: #333; }
+                        .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e9ef; border-radius: 10px; }
+                        .header { background: #0d3b26; color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; }
+                        .content { padding: 20px; }
+                        .btn { background: #0d3b26; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; }
+                        .footer { text-align: center; padding: 10px; font-size: 12px; color: #6b7c6f; }
+                    </style>
+                </head>
+                <body>
+                    <div class='container'>
+                        <div class='header'>
+                            <h2>🏛️ Barangay Sto. Niño</h2>
+                            <p>Online Services Portal</p>
+                        </div>
+                        <div class='content'>
+                            <h3>Welcome, $full_name!</h3>
+                            <p>Thank you for registering to Barangay Sto. Niño Online Services.</p>
+                            <p>You can now request documents and apply for event permits online.</p>
+                            <br>
+                            <a href='http://localhost/barangay_sto_nino_system/auth/login.php' class='btn'>Login Now</a>
+                        </div>
+                        <div class='footer'>
+                            &copy; 2026 Barangay Sto. Niño. All rights reserved.
+                        </div>
+                    </div>
+                </body>
+                </html>
+            ";
+            
+            sendEmail($email, $subject, $body);
+            // ===== END SEND WELCOME EMAIL =====
+            
             $_SESSION['register_success'] = "Registration successful! You can now login.";
             header("Location: ../index.php");
             exit();
